@@ -81,3 +81,39 @@ def put_theta(S, K, T, r, sigma):
 
     # Return per-day Theta
     return theta / 365
+
+def call_rho(S, K, T, r, sigma):
+
+    d1 = (
+        np.log(S / K)
+        + (r + sigma**2 / 2) * T
+    ) / (sigma * np.sqrt(T))
+
+    d2 = d1 - sigma * np.sqrt(T)
+
+    rho = (
+        K
+        * T
+        * np.exp(-r * T)
+        * norm.cdf(d2)
+    )
+
+    return rho / 100
+
+def put_rho(S, K, T, r, sigma):
+
+    d1 = (
+        np.log(S / K)
+        + (r + sigma**2 / 2) * T
+    ) / (sigma * np.sqrt(T))
+
+    d2 = d1 - sigma * np.sqrt(T)
+
+    rho = (
+        -K
+        * T
+        * np.exp(-r * T)
+        * norm.cdf(-d2)
+    )
+
+    return rho / 100
